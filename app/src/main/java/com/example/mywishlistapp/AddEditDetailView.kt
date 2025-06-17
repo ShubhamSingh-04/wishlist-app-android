@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mywishlistapp.data.Wish
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun AddEditDetailView(
@@ -45,6 +46,15 @@ fun AddEditDetailView(
 
 
     val scaffoldState = rememberScaffoldState()
+
+    if(id != 0L){
+        val wish = viewModel.getAWishById(id).collectAsState(initial = Wish(0L, "", ""))
+        viewModel.wishTitleState = wish.value.title
+        viewModel.wishDescriptionState = wish.value.description
+    } else{
+        viewModel.wishTitleState = ""
+        viewModel.wishDescriptionState = ""
+    }
 
 
     Scaffold(
@@ -94,7 +104,14 @@ fun AddEditDetailView(
             Button(onClick = {
                 if (viewModel.wishTitleState.isNotEmpty() && viewModel.wishDescriptionState.isNotEmpty()) {
                     if (id != 0L) {
-                        // TODO update wish
+                        viewModel.updateWish(
+                            Wish(
+                                id = id,
+                                title = viewModel.wishTitleState.trim(),
+                                description = viewModel.wishDescriptionState.trim()
+                            )
+                        )
+                        snackMessage.value = "Wish Updated"
                     } else {
                         // TODO AddWish
                         viewModel.addWish(
