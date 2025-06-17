@@ -10,7 +10,7 @@ class WishRepository(private val _wishDao: WishDao) {
     fun getWishes(): Flow<List<Wish>> = _wishDao.getAllWishes()
 
     fun getWishById(id: Long): Flow<Wish>{
-        return _wishDao.getAWishes(id)
+        return _wishDao.getAWishById(id)
     }
 
     suspend fun deleteAWish(wish: Wish){
