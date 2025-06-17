@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,11 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.mywishlistapp.data.DummyWish
 import com.example.mywishlistapp.data.Wish
 
 @Composable
-fun HomeView(paddingValues: PaddingValues) {
+fun HomeView(
+    paddingValues: PaddingValues,
+    navController: NavController,
+    viewModel: WishViewModel
+) {
     val context = LocalContext.current
     Scaffold(topBar = {
         AppBarView(title = "WishList", paddingValues = paddingValues, onBackNavClicked = {
@@ -37,7 +41,9 @@ fun HomeView(paddingValues: PaddingValues) {
     }, floatingActionButton = {
         FloatingActionButton(
             onClick = {
-                Toast.makeText(context, "Floating Action", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Floating Action", Toast.LENGTH_SHORT).show()
+
+                navController.navigate(Screen.AddScreen.route)
             }, contentColor = Color.White, containerColor = Color.Black
 
         ) {
@@ -51,8 +57,8 @@ fun HomeView(paddingValues: PaddingValues) {
                 .fillMaxSize()
                 .padding(it)
         ) {
-            items(DummyWish.wishList){
-                wish-> WishItem(wish = wish) { }
+            items(DummyWish.wishList) { wish ->
+                WishItem(wish = wish) { }
             }
         }
     }
@@ -61,20 +67,22 @@ fun HomeView(paddingValues: PaddingValues) {
 
 @Composable
 fun WishItem(wish: Wish, onClick: () -> Unit) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 8.dp, start = 8.dp, end = 8.dp)
-        .clickable{
-            onClick()
-        },
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp, start = 8.dp, end = 8.dp)
+            .clickable {
+                onClick()
+            },
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
             contentColor = Color.Black
-        )) {
-            Column(modifier = Modifier.padding(16.dp)){
-                Text(text = wish.title, fontWeight = FontWeight.Bold)
-                Text(text = wish.description)
-            }
+        )
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = wish.title, fontWeight = FontWeight.Bold)
+            Text(text = wish.description)
+        }
     }
 }
