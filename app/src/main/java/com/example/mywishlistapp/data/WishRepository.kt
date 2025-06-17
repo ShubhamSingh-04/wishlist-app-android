@@ -16,4 +16,8 @@ class WishRepository(private val _wishDao: WishDao) {
     suspend fun deleteAWish(wish: Wish){
         _wishDao.deleteAWish(wish)
     }
+
+    suspend fun updateAWish(wish: Wish){
+        _wishDao.updateAWish(wish)
+    }
 }
