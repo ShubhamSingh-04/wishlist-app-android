@@ -16,6 +16,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mywishlistapp.data.Wish
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.collectAsState
 
 @Composable
 fun AddEditDetailView(
@@ -47,11 +47,11 @@ fun AddEditDetailView(
 
     val scaffoldState = rememberScaffoldState()
 
-    if(id != 0L){
+    if (id != 0L) {
         val wish = viewModel.getAWishById(id).collectAsState(initial = Wish(0L, "", ""))
         viewModel.wishTitleState = wish.value.title
         viewModel.wishDescriptionState = wish.value.description
-    } else{
+    } else {
         viewModel.wishTitleState = ""
         viewModel.wishDescriptionState = ""
     }
@@ -136,7 +136,8 @@ fun AddEditDetailView(
             }) {
                 Text(
                     text = if (id != 0L) stringResource(R.string.update_wish)
-                    else stringResource(R.string.add_wish)
+                    else stringResource(R.string.add_wish),
+                    color = Color.White
                 )
             }
 
