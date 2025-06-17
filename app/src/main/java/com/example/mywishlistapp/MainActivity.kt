@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyWishlistAppTheme {
                 Scaffold {innerPadding->
-                    HomeView(innerPadding)
+                    Navigation(innerPadding)
                 }
 
             }
