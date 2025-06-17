@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -41,8 +42,6 @@ fun HomeView(
     }, floatingActionButton = {
         FloatingActionButton(
             onClick = {
-//                Toast.makeText(context, "Floating Action", Toast.LENGTH_SHORT).show()
-
                 navController.navigate(Screen.AddScreen.route)
             }, contentColor = Color.White, containerColor = Color.Black
 
@@ -52,12 +51,13 @@ fun HomeView(
             )
         }
     }) {
+        val wishList = viewModel.getAllWishes.collectAsState(initial = listOf())
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            items(DummyWish.wishList) { wish ->
+            items(wishList.value) { wish ->
                 WishItem(wish = wish) { }
             }
         }
