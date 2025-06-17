@@ -113,7 +113,6 @@ fun AddEditDetailView(
                         )
                         snackMessage.value = "Wish Updated"
                     } else {
-                        // TODO AddWish
                         viewModel.addWish(
                             Wish(
                                 title = viewModel.wishTitleState.trim(),
@@ -126,12 +125,11 @@ fun AddEditDetailView(
 
 
                 } else {
-                    // Enter filels for wish
                     snackMessage.value = "Enter fields to create a wish"
                 }
 
                 scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+//                    scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
                     navController.navigateUp()
                 }
 
