@@ -35,7 +35,7 @@ Built using modern Android development tools including **Jetpack Compose**, **Ro
 
 ### 🏠 Home Screen
 Displays all saved wishlist items in a vertically scrollable list.  
-![Home Screen](readmeImages/HomeScreen.png)
+![Home Screen](readmeImages/HomeScreenItems.png)
 
 ---
 
